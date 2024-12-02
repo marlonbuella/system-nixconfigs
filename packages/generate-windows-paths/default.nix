@@ -10,28 +10,28 @@ pkgs.stdenv.mkDerivation {
   # in
   ''
     shopt -s expand_aliases
+
     alias wslpath=$src/wslpath
+    alias cmd=$(wslpath 'C:\Windows\System32\cmd.exe')
+    alias ps=$(wslpath 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe')
 
-    # need to remove trailing slash if default dir has one
     export defaultMountDir=${defaultMountDir}
-    [[ $defaultMountDir != '/' ]] && defaultMountDir=$(echo ${defaultMountDir} | sed "s,/$,,")
+    # need to remove trailing slash if default dir has one
+    [[ $defaultMountDir != '/' ]] && defaultMountDir=$(realpath -s $defaultMountDir)
 
-    export currentMountDir=$(${pkgs.tomlq}/bin/tq -f /etc/wsl.conf 'automount.root')
-    # need a way to compare it with current set prefix and use it instead
+    # Determine current mount dir via cmd.exe's %windir% converted to WSL path.
+    currentMountDir=$(wslpath $(cmd /s /c 'echo %windir%') | head -n 1 | sed 's/\r//g' | sed 's/c\/WINDOWS//')
     # need to remove trailing slash if current dir has one
-    [[ $currentMountDir != '/' ]] && currentMountDir=$(echo $currentMountDir | sed "s,/$,,")
+    [[ $currentMountDir != '/' ]] && currentMountDir=$(realpath -s $currentMountDir)
 
-    IFS=";" WINPATHS=`$(wslpath 'C:\Windows\System32\WindowsPowerShell\v1.0')/powershell.exe -Command '& {echo $env:path}'`
+    IFS=";" WINPATHS=$(ps -Command '& {echo $env:path}')
 
     export PATHS=
 
     for WINPATH in $WINPATHS; do
-      WINPATH=$(wslpath "$WINPATH" | xargs | sed "0,/\\$currentMountDir\//s//\\$defaultMountDir\//")
+      WINPATH=$(wslpath "$WINPATH" | sed "0,/\\$currentMountDir\//s//\\$defaultMountDir\//")
       PATHS="$PATHS:$WINPATH"
     done
-
-#    echo $PATHS
-#    exit 1
 
     echo $PATHS > $out
   '';

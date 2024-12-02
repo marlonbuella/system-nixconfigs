@@ -5,7 +5,7 @@ let
     isInNixos = true;
     defaultUserId = 1000;
     defaultUserName = "alonbuella";
-    defaultMountDir = "/win";
+    defaultMountDir = "/";
 in
 {
     imports = (if isBuild then [
