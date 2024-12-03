@@ -1,6 +1,8 @@
 { pkgs, ... }:
 
 {
+    nixpkgs.config.allowUnfree = true;
+
     programs.git = {
         enable = true;
         
