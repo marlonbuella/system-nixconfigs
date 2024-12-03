@@ -9,6 +9,7 @@
         ./filesystems.nix
         ./boot.nix
         (import ./wsl.nix { inherit isBuild pkgs config lib modulesPath; })
+        ./dev.nix
     ];
 
     # Custom Nix settings
