@@ -76,8 +76,14 @@ in
         # TEST = (builtins.readFile (import ./packages/utils/get-os-name.nix { inherit pkgs; }));
     };
 
-    # VSCode server customized for Nix
+    # Install VSCode server's required binaries
     # @todo: create a package/service for this
+    system.activationScripts.linkVscodeReqBinaries = with pkgs; ''
+      ln -sf \
+        ${coreutils}/bin/{uname,dirname,readlink} \
+        /bin/
+    '';
+    # VSCode server customized for Nix
     system.userActivationScripts.linkCodeServerToNixBuild = 
     lib.mkIf (isInNixos) (
         let
@@ -87,10 +93,12 @@ in
             vscode-server-wsl = import ./packages/vscode-server-wsl { inherit pkgs lib; };
         in
         ''
-            if [[ ! -h "$HOME/.vscode-server/bin/${vscode-win-version-hash}" ]]; then
-                mkdir -p $HOME/.vscode-server/bin
-                ln -s "${vscode-server-wsl}" "$HOME/.vscode-server/bin/${vscode-win-version-hash}"
-            fi
+            VSCODE_SERVER_DIR=$HOME/.vscode-server
+            # remove old vscode server dir, might be stale
+            [[ -h "$VSCODE_SERVER_DIR" ]] && rm -rf $VSCODE_SERVER_DIR
+
+            mkdir -p $VSCODE_SERVER_DIR/bin
+            ln -s "${vscode-server-wsl}" "$VSCODE_SERVER_DIR/bin/${vscode-win-version-hash}"
         ''
     );
     
