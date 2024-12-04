@@ -1,0 +1,46 @@
+{
+  "nodes": {
+    "baseflake": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-aeARUvg4T2XgHUKPbLCPnYR8xhMFtLLpASxLYvn/6/U=",
+        "path": "/nix/store/ifdch0hqbvs27masi0vkiyiyc8rl9ijm-source/nixos",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/ifdch0hqbvs27masi0vkiyiyc8rl9ijm-source/nixos",
+        "type": "path"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1733307928,
+        "narHash": "sha256-xO6TJgO3rIEAQolTwE2EruWom5tsfn/7GwWt+vYXSfo=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "c3b08708334cca32db70df24516608e73f645136",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-24.11-small",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "baseflake": "baseflake",
+        "nixpkgs": [
+          "baseflake",
+          "nixpkgs"
+        ]
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}
