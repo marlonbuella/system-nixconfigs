@@ -6,13 +6,69 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-aeARUvg4T2XgHUKPbLCPnYR8xhMFtLLpASxLYvn/6/U=",
-        "path": "/nix/store/ifdch0hqbvs27masi0vkiyiyc8rl9ijm-source/nixos",
+        "narHash": "sha256-OX3IgoNXhCfHkal15wdwEWr4OWCy39rGVTG1daCMISA=",
+        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/ifdch0hqbvs27masi0vkiyiyc8rl9ijm-source/nixos",
+        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos",
         "type": "path"
+      }
+    },
+    "nixlib": {
+      "locked": {
+        "lastModified": 1733015484,
+        "narHash": "sha256-qiyO0GrTvbp869U4VGX5GhAZ00fSiPXszvosY1AgKQ8=",
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "rev": "0e4fdd4a0ab733276b6d2274ff84ae353f17129e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixpkgs.lib",
+        "type": "github"
+      }
+    },
+    "nixos-generator": {
+      "inputs": {
+        "baseflake": [
+          "baseflake"
+        ],
+        "nixos-generators": "nixos-generators"
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-G9PkHsFXrzKrOoDDVRFnlrqHBXKF2xD/EXfbJmANCNU=",
+        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos/configs/nixos-generator",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos/configs/nixos-generator",
+        "type": "path"
+      }
+    },
+    "nixos-generators": {
+      "inputs": {
+        "nixlib": "nixlib",
+        "nixpkgs": [
+          "nixos-generator",
+          "baseflake",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1733360821,
+        "narHash": "sha256-bNXO+OGxrOjAxv/Lnyj84tNDicJ/FdLyLJHzOKSzYU8=",
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "rev": "8cdaf8885c9c85d9d27b594dbe882406aadfe00e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nixos-generators",
+        "type": "github"
       }
     },
     "nixpkgs": {
@@ -34,10 +90,7 @@
     "root": {
       "inputs": {
         "baseflake": "baseflake",
-        "nixpkgs": [
-          "baseflake",
-          "nixpkgs"
-        ]
+        "nixos-generator": "nixos-generator"
       }
     }
   },

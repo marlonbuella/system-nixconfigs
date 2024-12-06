@@ -1,12 +1,19 @@
 {
   inputs = {
     baseflake.url = "../..";
-    nixpkgs.follows = "baseflake/nixpkgs";
+    nixos-generator = {
+      url = "../../configs/nixos-generator";
+      inputs.baseflake.follows = "baseflake"; 
+    };
   };
 
-  outputs = { self, nixpkgs, baseflake, ... }: baseflake.outputs // {
-    nixosConfigurations = {
-        default = baseflake.nixosConfigurations.default.extendModules {
+  outputs = { self, baseflake, nixos-generator, ... }: {
+    nixosConfigurations = 
+    let
+      nixosGeneratorVm = nixos-generator.nixosConfigurations.default;
+    in
+    {
+        default = nixosGeneratorVm.extendModules {
             modules = [ ./. ];
         };
         debug = self.nixosConfigurations.default.extendModules {
