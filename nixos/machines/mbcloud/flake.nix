@@ -1,19 +1,14 @@
 {
   inputs = {
-    baseflake.url = "../..";
-    nixos-generator = {
-      url = "../../configs/nixos-generator";
-      inputs.baseflake.follows = "baseflake"; 
+    baseflake = {
+      url = "../../layers/nixos-generator";
+      inputs.baseflake.url = "../..";
     };
   };
 
-  outputs = { self, baseflake, nixos-generator, ... }: {
-    nixosConfigurations = 
-    let
-      nixosGeneratorVm = nixos-generator.nixosConfigurations.default;
-    in
-    {
-        default = nixosGeneratorVm.extendModules {
+  outputs = { self, baseflake, ... }: baseflake.outputs // {
+    nixosConfigurations = {
+        default = baseflake.nixosConfigurations.default.extendModules {
             modules = [ ./. ];
         };
         debug = self.nixosConfigurations.default.extendModules {

@@ -7,7 +7,7 @@
     };
   };
 
-  outputs = { self, baseflake, nixos-generators, ... }: {
+  outputs = { self, baseflake, nixos-generators, ... }: baseflake.outputs // {
     nixosModules.default.imports = [ ./. ];
 
     nixosConfigurations.default = baseflake.nixosConfigurations.default.extendModules {

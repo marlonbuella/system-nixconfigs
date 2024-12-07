@@ -2,16 +2,32 @@
   "nodes": {
     "baseflake": {
       "inputs": {
+        "baseflake": "baseflake_2",
+        "nixos-generators": "nixos-generators"
+      },
+      "locked": {
+        "lastModified": 1,
+        "narHash": "sha256-WzALGjUSDQ0mcm2znIjn1et+n8oX/VKw5beK7JRWbrM=",
+        "path": "/nix/store/9hj8v6gmyyiig4pn8j8bw0f21nnmvmyz-source/nixos/layers/nixos-generator",
+        "type": "path"
+      },
+      "original": {
+        "path": "/nix/store/9hj8v6gmyyiig4pn8j8bw0f21nnmvmyz-source/nixos/layers/nixos-generator",
+        "type": "path"
+      }
+    },
+    "baseflake_2": {
+      "inputs": {
         "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-OX3IgoNXhCfHkal15wdwEWr4OWCy39rGVTG1daCMISA=",
-        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos",
+        "narHash": "sha256-HJHF3ojTSORjD6ZG9V67ORcHx+hoHPFdee2iahdlgxE=",
+        "path": "/nix/store/9hj8v6gmyyiig4pn8j8bw0f21nnmvmyz-source/nixos",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos",
+        "path": "/nix/store/9hj8v6gmyyiig4pn8j8bw0f21nnmvmyz-source/nixos",
         "type": "path"
       }
     },
@@ -30,29 +46,11 @@
         "type": "github"
       }
     },
-    "nixos-generator": {
-      "inputs": {
-        "baseflake": [
-          "baseflake"
-        ],
-        "nixos-generators": "nixos-generators"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-G9PkHsFXrzKrOoDDVRFnlrqHBXKF2xD/EXfbJmANCNU=",
-        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos/configs/nixos-generator",
-        "type": "path"
-      },
-      "original": {
-        "path": "/nix/store/607rsyjaxypmaj8knppy0k2mmrwv63mi-source/nixos/configs/nixos-generator",
-        "type": "path"
-      }
-    },
     "nixos-generators": {
       "inputs": {
         "nixlib": "nixlib",
         "nixpkgs": [
-          "nixos-generator",
+          "baseflake",
           "baseflake",
           "nixpkgs"
         ]
@@ -89,8 +87,7 @@
     },
     "root": {
       "inputs": {
-        "baseflake": "baseflake",
-        "nixos-generator": "nixos-generator"
+        "baseflake": "baseflake"
       }
     }
   },
