@@ -1,4 +1,4 @@
-{ nixosGenerators, config, pkgs, lib, modulesPath, ... }:
+{ nixosGenerators, additionalTarballContents, config, pkgs, lib, modulesPath, ... }:
 
 {
     imports = [
@@ -18,12 +18,7 @@
                     symlink = "none";
                 }
             ];
-            contents = with pkgs; [
-                # @todo: re-enable wsl.conf later
-                # {
-                #     source = config.system.build.toplevel + "/etc/wsl.conf";
-                #     target = "/etc/wsl.conf";
-                # }
+            contents = with pkgs; additionalTarballContents ++ [
                 {
                     source = config.system.build.toplevel + "/init";
                     target = "/sbin/init";

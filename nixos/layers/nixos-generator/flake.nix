@@ -13,6 +13,7 @@
     nixosConfigurations.default = baseflake.nixosConfigurations.default.extendModules {
         specialArgs = {
             nixosGenerators = nixos-generators;
+            additionalTarballContentsFromBuild = [];
         };
 
         modules = [ self.nixosModules.default ];
