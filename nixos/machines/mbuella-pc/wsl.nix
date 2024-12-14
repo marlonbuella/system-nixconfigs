@@ -59,4 +59,21 @@ in
         ${coreutils}/bin/{uname,dirname,readlink} \
         /bin/
     '';
+
+    # Link our ~/Documents/projects folder from Windows to ~/.local/projects
+    # @todo: create a package that would output the current Windows mountpoint
+    #   (C: by default)
+    system.userActivationScripts.linkMyWinProjectsFolder = with pkgs; ''
+        # cat <<EOF | ${bashInteractive}/bin/bash > /tmp/system-userActivationScripts-linkMyWinProjectsFolder-log.txt 2>&1
+        #     set -xe
+
+            alias findmnt=${util-linux}/bin/findmnt
+
+            mkdir -p $HOME/.local
+
+            ln -sf \
+                $(findmnt -t 9p -n -o target | tail -1)/Users/alonbuella/Documents/projects \
+                $HOME/.local/
+        # EOF
+    '';
 }
