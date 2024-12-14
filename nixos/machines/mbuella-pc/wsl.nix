@@ -50,4 +50,13 @@ in
     rec {
         PATH = [ "/bin" ] ++ (builtins.fromJSON (builtins.readFile "${wslWinpathsFile}"));
     };
+
+    # Enable vscode server support for NixOS
+    services.vscode-server.enable = true;
+    # Install VSCode server's required binaries
+    system.activationScripts.linkVscodeReqBinaries = with pkgs; ''
+      ln -sf \
+        ${coreutils}/bin/{uname,dirname,readlink} \
+        /bin/
+    '';
 }

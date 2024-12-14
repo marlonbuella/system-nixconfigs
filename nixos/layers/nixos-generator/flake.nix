@@ -1,6 +1,7 @@
 {
   inputs = {
     baseflake.url = "../..";
+    nixpkgs.follows = "baseflake/nixpkgs";
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "baseflake/nixpkgs";
@@ -13,7 +14,7 @@
     nixosConfigurations.default = baseflake.nixosConfigurations.default.extendModules {
         specialArgs = {
             nixosGenerators = nixos-generators;
-            additionalTarballContentsFromBuild = [];
+            additionalTarballContents = [];
         };
 
         modules = [ self.nixosModules.default ];

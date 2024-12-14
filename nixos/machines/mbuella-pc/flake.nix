@@ -8,9 +8,13 @@
       url = "../../layers/nixos-generator";
       inputs.baseflake.url = "../..";
     };
+    vscode-server = {
+      url = "github:nix-community/nixos-vscode-server";
+      inputs.nixpkgs.follows = "baseflake/nixpkgs";
+    };
   };
 
-  outputs = { self, baseflake, nixosGenerator, ... }: baseflake.outputs // {
+  outputs = { self, baseflake, nixosGenerator, vscode-server, ... }: baseflake.outputs // {
     nixosModules = {
       default.imports = [
         ../../configs/dev
@@ -33,7 +37,10 @@
               ];
           };
 
-          modules = [ self.nixosModules.wsl ];
+          modules = [
+            vscode-server.nixosModules.default
+            self.nixosModules.wsl
+          ];
         };
     };
   };
