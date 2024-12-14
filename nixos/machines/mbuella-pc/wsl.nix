@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 let
     config = import ./config.nix;
@@ -40,5 +40,14 @@ in
         '';
 
         mode = "0400";
+    };
+
+    # WSL-specific session vars
+    environment.sessionVariables = with config;
+    let
+        wslWinpathsFile = import ../../packages/wsl-winpaths { inherit defaultWslMountDir pkgs; };
+    in
+    rec {
+        PATH = [ "/bin" ] ++ (builtins.fromJSON (builtins.readFile "${wslWinpathsFile}"));
     };
 }
