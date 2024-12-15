@@ -11,16 +11,9 @@
       specialArgs = {
         inherit nixpkgs;
 
-        modulesPath = inputs.nixpkgs + "/nixos/modules";
+        modulesPath = "${inputs.nixpkgs}/nixos/modules";
       };
       modules = [ self.nixosModules.default ];
-    };
-  } // {
-    templates = {
-        machine = {
-            path = ./templates/machine;
-            description = "Base template for creating machines with sensible defaults.";
-        };
     };
   };
 }
